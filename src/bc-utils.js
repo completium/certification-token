@@ -65,14 +65,14 @@ function get_learners(v, addrs) {
   }
 }
 
-function get_certifications(key_addrs, cdate, ccer, cins) {
-  const array = key_addrs.map(function (addr) { const res = { "string": key_addrs.key }; return res; });
-  const m_elts = key_addrs.map(function (key_addr) {
+function get_certifications(certifications) {
+  const array = certifications.map(function (addr) { const res = { "string": certifications.cid }; return res; });
+  const m_elts = certifications.map(function (certification) {
     const res = {
       "prim": "Elt",
       "args": [
         {
-          "string": key_addr.key
+          "string": certification.cid
         },
         {
           "prim": "Pair",
@@ -84,10 +84,10 @@ function get_certifications(key_addrs, cdate, ccer, cins) {
                   "prim": "Pair",
                   "args": [
                     {
-                      "string": ccer
+                      "string": certification.ccer
                     },
                     {
-                      "string": cdate
+                      "string": certification.cdate
                     }
                   ]
                 },
@@ -95,17 +95,17 @@ function get_certifications(key_addrs, cdate, ccer, cins) {
                   "prim": "Pair",
                   "args": [
                     {
-                      "string": key_addr.key
+                      "string": certification.cid
                     },
                     {
-                      "string": key_addr.addr
+                      "string": certification.clea
                     }
                   ]
                 }
               ]
             },
             {
-              "string": cins
+              "string": certification.cins
             }
           ]
         }
@@ -157,13 +157,16 @@ export function register_learners(props, v, addrs) {
 }
 
 /*
-** key_addrs = [{key="key_value"; addr="tz1...."}; ...]
-** cdate = "2020-01-01T00:00:01Z"
-** ccer = certification id (string)
-** cins = institution key (address)
+** key_addrs = [{cid="key_value";
+**               cdate = "2020-01-01T00:00:01Z"
+**               ccer = certification id (string)
+**               clea="tz1...."
+**               cins = institution key (address)
+**               }; ...]
+**
 */
-export function certify(props, key_addrs, cdate, ccer, cins) {
-  const val = get_certifications(key_addrs, cdate, ccer, cins);
+export function certify(props, certification) {
+  const val = get_certifications(certification);
   return call_bc(props, 'certify', val);
 }
 
