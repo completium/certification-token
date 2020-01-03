@@ -44,15 +44,20 @@ const useStyles = makeStyles(theme => ({
 
 function now () {
   var today = new Date();
-  var date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
-  var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
+  return today;
+}
+
+function toUiDate (idate) {
+  var date = idate.getFullYear()+'-'+(idate.getMonth()+1)+'-'+idate.getDate();
+  var time = idate.getHours() + ":" + idate.getMinutes() + ":" + idate.getSeconds();
   return date + ' ' + time;
 }
 
 function toTzDate(idate) {
-  console.log(idate);
-  const [date,time] = idate.split(' ');
-  return date + 'T' + time + 'Z';
+  // console.log(idate);
+  // const [date,time] = idate.split(' ');
+  // return date + 'T' + time + 'Z';
+  return idate.toISOString();
 }
 
 function mkData(data,learners,instId) {
