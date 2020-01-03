@@ -1,0 +1,24 @@
+{
+  "mnemonic": [
+    "woman",
+    "wink",
+    "believe",
+    "project",
+    "party",
+    "confirm",
+    "slow",
+    "luxury",
+    "comic",
+    "need",
+    "wasp",
+    "fuel",
+    "motor",
+    "torch",
+    "flag"
+  ],
+  "secret": "9abc92b7332824db40fa11b2d538b1c6dc2e50fe",
+  "amount": "29464554771",
+  "pkh": "tz1fsVrxxNkXdpmACSgVafbSUMpNh9vQZeve",
+  "password": "2pAYwXAu7b",
+  "email": "djkfaqrs.iebvwfhz@tezos.example.org"
+}
