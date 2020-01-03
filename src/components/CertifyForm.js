@@ -50,6 +50,7 @@ function now () {
 }
 
 function toTzDate(idate) {
+  console.log(idate);
   const [date,time] = idate.split(' ');
   return date + 'T' + time + 'Z';
 }
@@ -67,7 +68,8 @@ function mkcid(i,tezid) {
 function mkCertifications(tezid,date,certificate,data) {
   return data.map((d,i) => {
     const cid = mkcid(i,tezid);
-    const ccer = JSON.stringify(certificate);
+    var ccerstr = JSON.stringify(certificate);
+    const ccer = new shajs.sha256().update(ccerstr).digest('hex').substring(0,12);
     const cdate = toTzDate(date);
     const clea = d.lid;
     const cins = d.iid;
