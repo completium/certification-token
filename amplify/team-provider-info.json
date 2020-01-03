@@ -10,11 +10,6 @@
             "StackName": "amplify-certification-token-ct-120805",
             "StackId": "arn:aws:cloudformation:eu-west-1:274400308391:stack/amplify-certification-token-ct-120805/5355bf50-2e19-11ea-89e8-0aac29486886",
             "AmplifyAppId": "d2m5iph9i67w7u"
-        },
-        "categories": {
-            "auth": {
-                "certificationtoken7dcacc6b": {}
-            }
         }
     }
 }
