@@ -86,6 +86,8 @@ function CertifyForm(props) {
   const handleAddClose = event => {
     setAdd(false);
     setData(mkData(data,learners,instid));
+    setLearners('');
+    setInstId('');
   }
     return (
       <div>
