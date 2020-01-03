@@ -83,7 +83,8 @@ function mkCertifications(tezid,date,certificate,data) {
 }
 
 function parseDate(datestr) {
-  return now();
+  var d = new Date(datestr);
+  return d;
 }
 
 function CertifyForm(props) {
