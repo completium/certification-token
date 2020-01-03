@@ -125,6 +125,7 @@ function App() {
           contractid={contractid}
           rpcprovider={rpcprovider}
         />;
+      default : break;
     }
   }
   const handleCloseSb = (event, reason) => {
