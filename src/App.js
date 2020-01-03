@@ -46,7 +46,7 @@ function App() {
   const [tezid,setTezId] = React.useState('tz1Lc2qBKEWCBeDU8npG6zCeCqpmaegRi6Jg');
   const [nbTokens,setNbTokens] = React.useState(0);
   const [iLearners,setIlearners] = React.useState([]);
-  const contractid = 'KT1Xc5Yy5Fxybi69z8RYDGeVmKKzSxpttQ7e';
+  const contractid = 'KT1L5e6vdKfYFPTJMpUrrhoRWWm9KGaRztAB';
   const rpcprovider='https://rpcalpha.tzbeta.net/';
   const [bright,setBright] = React.useState(false);
   function handleTezid(tezid) {
@@ -122,6 +122,8 @@ function App() {
           handleBackdrop={setOpenBd}
           setSbState={setSbState}
           theme={bright?themebright:themedark}
+          contractid={contractid}
+          rpcprovider={rpcprovider}
         />;
     }
   }

@@ -20,6 +20,7 @@
     "react": "^16.12.0",
     "react-dom": "^16.12.0",
     "react-scripts": "3.3.0",
+    "sha.js": "^2.4.11",
     "tezbridge-network": "^1.0.44"
   },
   "scripts": {

@@ -34,7 +34,14 @@ function Certifier(props) {
       <Grid item>
         <Grid container xs="">
           <Grid item xs="6">
-            <CertifyForm theme={props.theme}/>
+            <CertifyForm
+              theme={props.theme}
+              tezid={props.tezid}
+              handleBackdrop={props.handleBackdrop}
+              setSbState={props.setSbState}
+              contractid={props.contractid}
+              rpcprovider={props.rpcprovider}
+            />
           </Grid>
         </Grid>
       </Grid>

@@ -29,6 +29,8 @@ import {
 
 import * as BcUtils from '../bc-utils'
 
+var shajs = require('sha.js')
+
 const useStyles = makeStyles(theme => ({
   paper: {
     padding: 12
@@ -44,13 +46,33 @@ function now () {
   var today = new Date();
   var date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
   var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
-  return date+' '+time;
+  return date + ' ' + time;
+}
+
+function toTzDate(idate) {
+  const [date,time] = idate.split(' ');
+  return date + 'T' + time + 'Z';
 }
 
 function mkData(data,learners,instId) {
   var ids = learners.split("\n").filter(val => BcUtils.isTz1Address(val));
   var obj = ids.map(l => { return { "lid":l, "iid":instId };});
   return data.concat(obj);
+}
+
+function mkcid(i,tezid) {
+  return new shajs.sha256().update(''+i+''+tezid+now()).digest('hex').substring(0,12);
+}
+
+function mkCertifications(tezid,date,certificate,data) {
+  return data.map((d,i) => {
+    const cid = mkcid(i,tezid);
+    const ccer = JSON.stringify(certificate);
+    const cdate = toTzDate(date);
+    const clea = d.lid;
+    const cins = d.iid;
+    return {"cid":cid, "ccer":ccer, "cdate":cdate, "clea":clea, "cins":cins};
+  });
 }
 
 function CertifyForm(props) {
@@ -88,6 +110,16 @@ function CertifyForm(props) {
     setData(mkData(data,learners,instid));
     setLearners('');
     setInstId('');
+  }
+  const certify = event => {
+    const certifications = mkCertifications(props.tezid,selectedDate,certificate,data);
+    console.log(JSON.stringify(certifications,null,2));
+    props.handleBackdrop(true);
+    BcUtils.certify({contractid:props.contractid},certifications)
+    .then(result => {console.log(result);
+      props.handleBackdrop(false);
+      props.setSbState({open:true,status:"success",msg:"certification succeeded!"})
+    })
   }
     return (
       <div>
@@ -145,7 +177,13 @@ function CertifyForm(props) {
               />
             </Grid>
             <Grid item>
-              <Button variant="contained" color="primary" disableElevation  style={{marginTop : 12}}>
+              <Button
+                variant="contained"
+                color="primary"
+                disableElevation
+                onClick={certify}
+                style={{marginTop : 12}}
+              >
                 Certify
               </Button>
             </Grid>
@@ -160,11 +198,11 @@ function CertifyForm(props) {
           maxWidth='false'
         >
           <DialogContent>
-          <SelectCertificate theme={props.theme} setCertificate={setCertificate}/>
+            <SelectCertificate theme={props.theme} setCertificate={setCertificate}/>
           </DialogContent>
           <DialogActions>
             <Button onClick={handleClose}>
-            OK
+              OK
             </Button>
           </DialogActions>
         </Dialog>
