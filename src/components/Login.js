@@ -45,9 +45,24 @@ export default function Login(props) {
               .then(function (s) {
                 //console.log(Object.keys(s.learner_assets));
                 //console.log(props.tezid);
-                var reg = Object.keys(s.learner_assets).includes(props.tezid);
+                var reg = false;
+                switch(name) {
+                  case 'Learner' :
+                    reg = Object.keys(s.learner_assets).includes(props.tezid);
+                    props.setNbTokens(reg?parseInt(s.learner_assets[props.tezid].ltokens):0);
+                    break;
+                  case 'Institution' :
+                    console.log(Object.keys(s.institution_assets));
+                    reg = Object.keys(s.institution_assets).includes(props.tezid);
+                    props.setNbTokens(reg?parseInt(s.institution_assets[props.tezid].itokens):0);
+                    props.setIlearners(reg?s.institution_assets[props.tezid].ilearners:[]);
+                    break;
+                  case 'Certifier' :
+                    reg = Object.keys(s.certifier_assets).includes(props.tezid);
+                    break;
+                  default : break;
+                };
                 //console.log(reg);
-                props.setNbTokens(reg?parseInt(s.learner_assets[props.tezid].ltokens):0);
                 props.setRegistered(reg);
                 props.handleDisplay(reg?name:'Register'+name);
                 console.log(s);

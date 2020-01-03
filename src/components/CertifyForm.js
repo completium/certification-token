@@ -7,7 +7,7 @@ import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 //import DialogContentText from '@material-ui/core/DialogContentText';
-//import DialogTitle from '@material-ui/core/DialogTitle';
+import DialogTitle from '@material-ui/core/DialogTitle';
 import Button from '@material-ui/core/Button';
 import Grid from '@material-ui/core/Grid';
 
@@ -15,6 +15,7 @@ import TextField from '@material-ui/core/TextField';
 import InputAdornment from '@material-ui/core/InputAdornment';
 import IconButton from '@material-ui/core/IconButton';
 import ArrowDropDownIcon from '@material-ui/icons/ArrowDropDown';
+import AddIcon from '@material-ui/icons/Add';
 import Paper from '@material-ui/core/Paper';
 
 import SelectCertificate from './SelectCertificate.js';
@@ -25,6 +26,8 @@ import {
   MuiPickersUtilsProvider,
   KeyboardDatePicker,
 } from '@material-ui/pickers';
+
+import * as BcUtils from '../bc-utils'
 
 const useStyles = makeStyles(theme => ({
   paper: {
@@ -44,23 +47,45 @@ function now () {
   return date+' '+time;
 }
 
+function mkData(data,learners,instId) {
+  var ids = learners.split("\n").filter(val => BcUtils.isTz1Address(val));
+  var obj = ids.map(l => { return { "lid":l, "iid":instId };});
+  return data.concat(obj);
+}
+
 function CertifyForm(props) {
   const classes = useStyles();
   const [selectedDate, setSelectedDate] = React.useState(now());
   const [certificate,setCertificate] = React.useState(null);
   const [learners, setLearners] = React.useState('');
+  const [instid, setInstId] = React.useState('');
+  const [data, setData] = React.useState([]);
   const [open, setOpen] = React.useState(false);
+  const [add, setAdd] = React.useState(false);
   const handleDateChange = date => {
     setSelectedDate(date);
   };
   const handleIdsChange = event => {
     setLearners(event.target.value);
   };
+  const handleDataChange = event => {
+    setData(event.target.value);
+  }
+  const handleInstChange = event => {
+    setInstId(event.target.value);
+  }
   const handleClose = event => {
     setOpen(false);
   }
   const handleOpen = event => {
     setOpen(true);
+  }
+  const handleAdd = event => {
+    setAdd(true);
+  }
+  const handleAddClose = event => {
+    setAdd(false);
+    setData(mkData(data,learners,instid));
   }
     return (
       <div>
@@ -102,12 +127,19 @@ function CertifyForm(props) {
             <Grid item>
               <TextField
                 id="standard-multiline-flexible"
-                label="Learner identifier(s)"
+                label="Learner(s) - Institution identifier(s)"
                 multiline
                 rowsMax="10"
-                value={learners}
-                onChange={handleIdsChange}
+                value={JSON.stringify(data,null,2)}
+                onChange={handleDataChange}
                 fullWidth="true"
+                InputProps={{
+                endAdornment: <InputAdornment position="end">
+                              <IconButton onClick={handleAdd}>
+                                <AddIcon />
+                              </IconButton>
+                            </InputAdornment>
+                }}
               />
             </Grid>
             <Grid item>
@@ -129,11 +161,51 @@ function CertifyForm(props) {
           <SelectCertificate theme={props.theme} setCertificate={setCertificate}/>
           </DialogContent>
           <DialogActions>
-            <Button onClick={handleClose} color="primary">
+            <Button onClick={handleClose}>
             OK
             </Button>
           </DialogActions>
         </Dialog>
+        <Dialog
+          open={add}
+          onClose={handleAddClose}
+          className={classes.root}
+          maxWidth='true'
+        >
+        <DialogTitle>
+          Learner(s) - Institution
+        </DialogTitle>
+        <DialogContent style={{ paddingLeft:14, paddingRight:14}}>
+          <Grid container direction="column" spacing={4}>
+            <Grid item>
+              <TextField
+                label="Learner(s) identifier(s)"
+                multiline
+                rowsMax="10"
+                value={learners}
+                onChange={handleIdsChange}
+                fullWidth="true"
+                style={{width:400}}
+              />
+            </Grid>
+            <Grid item>
+              <TextField
+                label="Institution identifier"
+                value={instid}
+                onChange={handleInstChange}
+                fullWidth="true"
+                style={{width:400}}
+              />
+            </Grid>
+          </Grid>
+        </DialogContent>
+        <DialogActions>
+            <Button onClick={handleAddClose}>
+            Add
+            </Button>
+          </DialogActions>
+        </Dialog>
+
       </div>
     )
 }

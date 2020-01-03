@@ -1,3 +1,6 @@
+export function isTz1Address(addr) {
+  return addr.length === 36 && addr.startsWith("tz1");
+}
 
 function call_bc(props, entrypoint, val) {
   const tezbridge = window.tezbridge;

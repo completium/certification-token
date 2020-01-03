@@ -25,7 +25,7 @@ function Institution(props) {
   const classes = useStyles();
   const [openView, setOpenView] = React.useState(false);
   const isize = 40;
-  const nbtokens = 235;
+  const nbtokens = props.nbTokens;
   function handleClose() {
     setOpenView(false);
   }
@@ -33,7 +33,7 @@ function Institution(props) {
     setOpenView(true);
   }
   const columns = [ { title: 'Address', field: 'addr' } ]
-  const learners = [{addr:'tz1hGAmQn8EZGWswKhMZJvY6P4FY8iWD4zD9'}, {addr:'learner2'}, {addr:'learner3'}, {addr:'learner4'}];
+  const learners = props.iLearners.map(l => { var obj = {}; obj.addr=l; return obj; });
 
   return (
     <div>
@@ -68,6 +68,10 @@ function Institution(props) {
           <RegisterStudent
             handleBackdrop={props.handleBackdrop}
             setSbState={props.setSbState}
+            rpcprovider={props.rpcprovider}
+            contractid={props.contractid}
+            tezid={props.tezid}
+            setIlearners={props.setIlearners}
           />
           </Grid>
         </Grid>

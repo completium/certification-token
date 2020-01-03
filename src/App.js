@@ -45,7 +45,8 @@ function App() {
   const [registered, setRegistered] = React.useState(false);
   const [tezid,setTezId] = React.useState('tz1Lc2qBKEWCBeDU8npG6zCeCqpmaegRi6Jg');
   const [nbTokens,setNbTokens] = React.useState(0);
-  const contractid = 'KT1Ah4B8msdVS5KU2b4snWeQHZWSoiSvwBqG';
+  const [iLearners,setIlearners] = React.useState([]);
+  const contractid = 'KT1Xc5Yy5Fxybi69z8RYDGeVmKKzSxpttQ7e';
   const rpcprovider='https://rpcalpha.tzbeta.net/';
   const [bright,setBright] = React.useState(false);
   function handleTezid(tezid) {
@@ -65,6 +66,7 @@ function App() {
             rpcprovider={rpcprovider}
             tezid={tezid}
             setNbTokens={setNbTokens}
+            setIlearners={setIlearners}
         />;
       case 'RegisterLearner':
         return <Register
@@ -108,6 +110,11 @@ function App() {
             tezid={tezid}
             handleBackdrop={setOpenBd}
             setSbState={setSbState}
+            nbTokens={nbTokens}
+            iLearners={iLearners}
+            contractid={contractid}
+            rpcprovider={rpcprovider}
+            setIlearners={setIlearners}
           />;
       case 'Certifier':
         return <Certifier

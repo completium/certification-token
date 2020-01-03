@@ -7,6 +7,9 @@ import Paper from '@material-ui/core/Paper';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 
+import * as BcUtils from '../bc-utils';
+import { Tezos } from '@taquito/taquito';
+
 const useStyles = makeStyles(theme => ({
   paper: {
     padding: 12,
@@ -28,14 +31,28 @@ function RegisterStudent(props) {
     if (stid.length === 0) {
       setError(true);
     } else {
-      console.log(stid);
+      var learners = stid.split("\n").filter(addr => BcUtils.isTz1Address(addr));
+      console.log(learners);
+      var reg = false;
+      switch(source) {
+        case 'register': reg = true; break;
+        case 'unregsiter': reg = false; break;
+        default: break;
+      };
       props.handleBackdrop(true);
-      setTimeout(() => {
-        props.handleBackdrop(false);
-        setStid("");
-        props.setSbState({open:true,status:"success",msg:"Transaction succeeded."});
-      },
-      1000);
+      BcUtils.register_learners({ contractid:props.contractid},reg,learners)
+      .then(result => {console.log(result);
+        Tezos.setProvider({rpc: props.rpcprovider});
+        Tezos.contract.at(props.contractid)
+        .then(function (contract) {
+          contract.storage()
+            .then(function (s) {
+              props.handleBackdrop(false);
+              props.setIlearners(s.institution_assets[props.tezid].ilearners);
+            });
+        });
+        props.setSbState({open:true,status:"success",msg:"Learners registration succeeded!"})
+      });
     }
   };
   return (
