@@ -82,6 +82,10 @@ function mkCertifications(tezid,date,certificate,data) {
   });
 }
 
+function parseDate(datestr) {
+  return now();
+}
+
 function CertifyForm(props) {
   const classes = useStyles();
   const [selectedDate, setSelectedDate] = React.useState(now());
@@ -92,7 +96,7 @@ function CertifyForm(props) {
   const [open, setOpen] = React.useState(false);
   const [add, setAdd] = React.useState(false);
   const handleDateChange = date => {
-    setSelectedDate(date);
+    setSelectedDate(parseDate(date));
   };
   const handleIdsChange = event => {
     setLearners(event.target.value);
@@ -141,8 +145,8 @@ function CertifyForm(props) {
                   margin="normal"
                   id="date-picker-dialog"
                   label="Date picker dialog"
-                  format="MM/dd/yyyy"
-                  value={selectedDate}
+                  format="yyyy-MM-dd"
+                  value={toUiDate(selectedDate)}
                   onChange={handleDateChange}
                   KeyboardButtonProps={{
                     'aria-label': 'change date',
