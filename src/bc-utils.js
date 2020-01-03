@@ -66,7 +66,7 @@ function get_learners(v, addrs) {
 }
 
 function get_certifications(certifications) {
-  const array = certifications.map(function (addr) { const res = { "string": certifications.cid }; return res; });
+  const array = certifications.map(function (addr) { const res = { "string": certification.cid }; return res; });
   const m_elts = certifications.map(function (certification) {
     const res = {
       "prim": "Elt",
