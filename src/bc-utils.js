@@ -98,14 +98,14 @@ function get_certifications(certifications) {
                       "string": certification.cid
                     },
                     {
-                      "string": certification.clea
+                      "string": certification.cins
                     }
                   ]
                 }
               ]
             },
             {
-              "string": certification.cins
+              "string": certification.clea
             }
           ]
         }
