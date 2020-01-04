@@ -101,6 +101,7 @@ function CertifyForm(props) {
   const [learners, setLearners] = React.useState('');
   const [instid, setInstId] = React.useState('');
   const [data, setData] = React.useState([]);
+  const [multi,setMulti] = React.useState('');
   const [open, setOpen] = React.useState(false);
   const [add, setAdd] = React.useState(false);
   const handleDateChange = date => {
@@ -110,7 +111,8 @@ function CertifyForm(props) {
     setLearners(event.target.value);
   };
   const handleDataChange = event => {
-    setData(event.target.value);
+    setMulti(event.target.value);
+    // TODO : parse multi as JSON and invoke setData ...
   }
   const handleInstChange = event => {
     setInstId(event.target.value);
@@ -126,16 +128,17 @@ function CertifyForm(props) {
   }
   const handleAddClose = event => {
     setAdd(false);
-    setData(mkData(data,learners,instid));
+    const d = mkData(data,learners,instid);
+    setData(d);
+    setMulti(JSON.stringify(d,null,2));
     setLearners('');
     setInstId('');
   }
   const certify = event => {
     const certifications = mkCertifications(props.tezid,selectedDate,certificate,data);
-    console.log(JSON.stringify(certifications,null,2));
     props.handleBackdrop(true);
     BcUtils.certify({contractid:props.contractid},certifications)
-    .then(result => {console.log(result);
+    .then(result => {
       props.handleBackdrop(false);
       props.setSbState({open:true,status:"success",msg:"certification succeeded!"})
     })
@@ -183,7 +186,7 @@ function CertifyForm(props) {
                 label="Learner(s) - Institution identifier(s)"
                 multiline
                 rowsMax="10"
-                value={JSON.stringify(data,null,2)}
+                value={multi}
                 onChange={handleDataChange}
                 fullWidth="true"
                 InputProps={{
