@@ -43,9 +43,10 @@ function App() {
   const [sbState, setSbState] = React.useState({open:false,status:"success",msg:""}); /* snackbar state */
   const [display, setDisplay] = React.useState('Login');
   const [registered, setRegistered] = React.useState(false);
-  const [tezid,setTezId] = React.useState('tz1Lc2qBKEWCBeDU8npG6zCeCqpmaegRi6Jg');
-  const [nbTokens,setNbTokens] = React.useState(0);
-  const [iLearners,setIlearners] = React.useState([]);
+  const [tezid, setTezId] = React.useState('tz1Lc2qBKEWCBeDU8npG6zCeCqpmaegRi6Jg');
+  const [nbTokens, setNbTokens] = React.useState(0);
+  const [iLearners, setIlearners] = React.useState([]);
+  const [certificates, setCertificates] = React.useState([]);
   const contractid = 'KT1L5e6vdKfYFPTJMpUrrhoRWWm9KGaRztAB';
   const rpcprovider='https://rpcalpha.tzbeta.net/';
   const [bright,setBright] = React.useState(false);
@@ -67,6 +68,7 @@ function App() {
             tezid={tezid}
             setNbTokens={setNbTokens}
             setIlearners={setIlearners}
+            setCertificates={setCertificates}
         />;
       case 'RegisterLearner':
         return <Register
@@ -104,6 +106,7 @@ function App() {
           setSbState={setSbState}
           contractid={contractid}
           rpcprovider={rpcprovider}
+          certificates={certificates}
         />;
       case 'Institution':
           return <Institution

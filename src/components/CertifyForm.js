@@ -27,7 +27,8 @@ import {
   KeyboardDatePicker,
 } from '@material-ui/pickers';
 
-import * as BcUtils from '../bc-utils'
+import * as BcUtils from '../bc-utils';
+import { mkid } from './Onisep_db.js';
 
 var shajs = require('sha.js')
 
@@ -73,8 +74,13 @@ function mkcid(i,tezid) {
 function mkCertifications(tezid,date,certificate,data) {
   return data.map((d,i) => {
     const cid = mkcid(i,tezid);
-    var ccerstr = JSON.stringify(certificate);
-    const ccer = new shajs.sha256().update(ccerstr).digest('hex').substring(0,12);
+    var cert = {
+      libelle_formation_principal:certificate.label,
+      libelle_formation_complementaire:certificate.clabel
+    };
+    console.log(cert);
+    const ccer = mkid(cert);
+    console.log('ccer : ' + ccer);
     const cdate = toTzDate(date);
     const clea = d.lid;
     const cins = d.iid;

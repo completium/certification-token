@@ -43,6 +43,7 @@ export default function Login(props) {
             console.log("Showing initial storage...");
             contract.storage()
               .then(function (s) {
+                //console.log(s);
                 //console.log(Object.keys(s.learner_assets));
                 //console.log(props.tezid);
                 var reg = false;
@@ -50,6 +51,7 @@ export default function Login(props) {
                   case 'Learner' :
                     reg = Object.keys(s.learner_assets).includes(props.tezid);
                     props.setNbTokens(reg?parseInt(s.learner_assets[props.tezid].ltokens):0);
+                    props.setCertificates(reg?s.certification_assets:[])
                     break;
                   case 'Institution' :
                     console.log(Object.keys(s.institution_assets));

@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import MaterialTable from 'material-table';
+//import Typography from '@material-ui/core/Typography';
 
 import { forwardRef } from 'react';
 
@@ -55,6 +56,7 @@ class ViewTable extends Component {
       title={ this.props.title }
       columns={this.state.columns}
       data={this.state.data}
+      detailPanel={this.props.detail}
     />
   );
       }

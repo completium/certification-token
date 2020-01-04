@@ -12,7 +12,8 @@ import Button from '@material-ui/core/Button';
 
 import DialogTable from './DialogTable.js';
 
-import * as BcUtils from '../bc-utils'
+import * as BcUtils from '../bc-utils';
+import * as Onisep from './Onisep_db.js';
 
 const useStyles = makeStyles(theme => ({
   wrapIcon: {
@@ -27,21 +28,47 @@ const useStyles = makeStyles(theme => ({
 //}
 
 const columns = [
-  { title:'Certificate', field:'certificated' },
-  { title:'Date', field:'date' },
-  { title:'Institution', field:'ins' },
+  { title:'Date', field:'cdate', render: rd => (new Date(rd.cdate)).toLocaleDateString("en-US") },
+  { title:'Certificate', field:'cid', hidden:true },
+  { title:'Institution', field:'cins' },
 ];
-const rows = [
-//  createData('11a3e229084349bc25d97e29393ced1d', '2019/05/23', 'opFJMKU1Z5sJMUHk4AtR2grfdHBmXvCwA72GhKWrWVGfDEgnDQN'),
-//  createData('82c16692a7f9040f3a6eb6a6a3f3c141', '2019/05/23', 'op3tyxXfMWrFkjWtYtVCVryX2ebwrELYyrf4jxhKiYt62R1Lo3x'),
-//  createData('6ccef1b25ea58fb8be3ca1a1a744ea53', '2019/05/23', 'opFJMKU1Z5sJMUHk4AtR2grfdHBmXvCwA72GhKWrWVGfDEgnDQN'),
-];
+
+function lookupdb(val) {
+  var certificates = Onisep.db.filter(c => {
+    console.log(c);
+    const k = Onisep.mkid(c);
+    console.log(k);
+    console.log("val : " + val);
+    return val === k;
+  });
+  if (certificates.length > 0) {
+    const cer0 = certificates[0];
+    return cer0.libelle_formation_principal + " (" + cer0.libelle_formation_complementaire + ")";
+  }
+  return "Not found";
+}
+
+function mkRows(tezid, certificates) {
+  return Object.keys(certificates)
+    .filter(k => certificates[k].clea === tezid)
+    .map(k => {
+      var obj = certificates[k];
+      console.log("obj ...");
+      console.log(obj.ccer);
+      obj.cid = lookupdb(obj.ccer);
+      return obj;
+    });
+}
+
+function detail(rd) { return <Typography style={{marginLeft : 14}}>{rd.cid}</Typography>;}
 
 function Learner (props) {
   const classes = useStyles();
   const isize = 40;
   const nbtokens = props.nbtokens;
   const [openView, setOpenView] = React.useState(false);
+  const rows = mkRows(props.tezid, props.certificates);
+  //console.log('nb certificates : '+(props.certificates.length));
   function handleClose() {
     setOpenView(false);
   }
@@ -98,7 +125,9 @@ function Learner (props) {
       open={openView}
       columns={columns}
       data={rows}
-      title="Certificates" />
+      title="Certificates"
+      detail={detail}
+    />
   </div>
   );
 }

@@ -29,11 +29,11 @@ function DialogTable(props) {
     maxWidth='false'
   >
     <DialogContent>
-    <ViewTable title={props.title} columns={props.columns} data={props.data}/>
+      <ViewTable title={props.title} columns={props.columns} data={props.data} detail={props.detail}/>
     </DialogContent>
     <DialogActions>
-      <Button onClick={props.handleClose} color="primary">
-      OK
+      <Button onClick={props.handleClose}>
+        OK
       </Button>
     </DialogActions>
   </Dialog>
