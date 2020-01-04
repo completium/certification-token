@@ -173,7 +173,7 @@ function App() {
             horizontal: 'left',
           }}
           open={sbState.open}
-          autoHideDuration={3000}
+          autoHideDuration={6000}
           onClose={handleCloseSb}
         >
           <SnackbarContentWrapper

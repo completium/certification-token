@@ -26,7 +26,7 @@ const NavBar = (props) => {
                 <Toolbar>
                     <Home handleDisplay={props.handleDisplay} />
                     <Typography variant="h6" className={classes.title} color="inherit">
-                        DApp for certification token
+                        Dapp for certification token
                     </Typography>
                     {/* <Switches
                       withTezbox={props.withTezbox}
