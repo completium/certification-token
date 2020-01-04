@@ -35,10 +35,7 @@ const columns = [
 
 function lookupdb(val) {
   var certificates = Onisep.db.filter(c => {
-    console.log(c);
     const k = Onisep.mkid(c);
-    console.log(k);
-    console.log("val : " + val);
     return val === k;
   });
   if (certificates.length > 0) {
@@ -53,8 +50,6 @@ function mkRows(tezid, certificates) {
     .filter(k => certificates[k].clea === tezid)
     .map(k => {
       var obj = certificates[k];
-      console.log("obj ...");
-      console.log(obj.ccer);
       obj.cid = lookupdb(obj.ccer);
       return obj;
     });

@@ -2,6 +2,7 @@ import React from 'react';
 
 import IconButton from '@material-ui/core/IconButton';
 import Badge from '@material-ui/core/Badge';
+import Tooltip from '@material-ui/core/Tooltip';
 import TezIcon from './TezIcon';
 
 function TezButton (props) {
@@ -9,18 +10,22 @@ function TezButton (props) {
     props.handleClick(e);
   }
   if (props.withtezbox) {
-    return <IconButton onClick={handleClick}>
-              <TezIcon />
-            </IconButton>;
+    return <Tooltip title="View wallet">
+      <IconButton onClick={handleClick}>
+        <TezIcon />
+      </IconButton>
+    </Tooltip>
   }
-  return <IconButton>
-    <Badge
-      onClick={props.handleClick}
-      badgeContent={"!"}
-      color="secondary">
-      <TezIcon />
-    </Badge>
-  </IconButton>;
+  return <Tooltip title="Open Tezbridge wallet">
+    <IconButton>
+      <Badge
+        onClick={props.handleClick}
+        badgeContent={"!"}
+        color="secondary">
+        <TezIcon />
+      </Badge>
+    </IconButton>
+  </Tooltip>;
 }
 
 export default TezButton;

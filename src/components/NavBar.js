@@ -8,7 +8,7 @@ import Typography from '@material-ui/core/Typography';
 import Git from './Git';
 import TezBox from './TezBox';
 import Home from './Home';
-import Switches from './Switches';
+//import Switches from './Switches';
 import Bright from './Bright'
 
 const useStyles = makeStyles(theme => ({
@@ -28,12 +28,12 @@ const NavBar = (props) => {
                     <Typography variant="h6" className={classes.title} color="inherit">
                         DApp for certification token
                     </Typography>
-                    <Switches
+                    {/* <Switches
                       withTezbox={props.withTezbox}
                       setWithTezbox={props.setWithTezbox}
                       registered={props.registered}
                       setRegistered={props.setRegistered}
-                    />
+                    /> */}
                     <TezBox
                       withTezbox={props.withTezbox}
                       setWithTezbox={props.setWithTezbox}
