@@ -87,7 +87,7 @@ function get_certifications(certifications) {
                       "string": certification.ccer
                     },
                     {
-                      "string": certification.cdate
+                      "string": certification.ccertifier
                     }
                   ]
                 },
@@ -95,17 +95,25 @@ function get_certifications(certifications) {
                   "prim": "Pair",
                   "args": [
                     {
-                      "string": certification.cid
+                      "string": certification.cdate
                     },
                     {
-                      "string": certification.cins
+                      "string": certification.cid
                     }
                   ]
                 }
               ]
             },
             {
-              "string": certification.clea
+              "prim": "Pair",
+              "args": [
+                {
+                  "string": certification.cins
+                },
+                {
+                  "string": certification.clea
+                }
+              ]
             }
           ]
         }

@@ -47,7 +47,7 @@ function App() {
   const [nbTokens, setNbTokens] = React.useState(0);
   const [iLearners, setIlearners] = React.useState([]);
   const [certificates, setCertificates] = React.useState([]);
-  const contractid = 'KT1L5e6vdKfYFPTJMpUrrhoRWWm9KGaRztAB';
+  const contractid = 'KT19E1fZ5toRNLtSV1uZ4SSvZbJbswyWFuGx';
   const rpcprovider='https://rpcalpha.tzbeta.net/';
   const [bright,setBright] = React.useState(true);
   function handleTezid(tezid) {

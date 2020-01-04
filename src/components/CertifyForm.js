@@ -84,7 +84,8 @@ function mkCertifications(tezid,date,certificate,data) {
     const cdate = toTzDate(date);
     const clea = d.lid;
     const cins = d.iid;
-    return {"cid":cid, "ccer":ccer, "cdate":cdate, "clea":clea, "cins":cins};
+    const ccertifier = tezid;
+    return {"cid":cid, "ccer":ccer, "cdate":cdate, "clea":clea, "cins":cins, "ccertifier":ccertifier};
   });
 }
 
