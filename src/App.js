@@ -49,7 +49,7 @@ function App() {
   const [certificates, setCertificates] = React.useState([]);
   const contractid = 'KT1L5e6vdKfYFPTJMpUrrhoRWWm9KGaRztAB';
   const rpcprovider='https://rpcalpha.tzbeta.net/';
-  const [bright,setBright] = React.useState(false);
+  const [bright,setBright] = React.useState(true);
   function handleTezid(tezid) {
     setWithTezbox(false);
     setTezId(tezid);
@@ -140,6 +140,7 @@ function App() {
   return (
       <ThemeProvider theme={bright?themebright:themedark}>
         <CssBaseline />
+        <ThemeProvider theme={themedark}>
         <NavBar
           handleDisplay={setDisplay}
           withTezbox={withTezbox}
@@ -153,6 +154,7 @@ function App() {
           bright={bright}
           setBright={setBright}
         />
+        </ThemeProvider>
         <Container style={{ marginTop: 40 }}>
           {getDisplay()}
         </Container>

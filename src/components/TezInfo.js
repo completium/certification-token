@@ -24,6 +24,7 @@ function TezInfo(props) {
         className={classes.root}
         noValidate
         autoComplete="off"
+        style={{padding: 20}}
       >
       <TextField
           label="Account"
