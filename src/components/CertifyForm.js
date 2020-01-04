@@ -102,6 +102,7 @@ function CertifyForm(props) {
   const [instid, setInstId] = React.useState('');
   const [data, setData] = React.useState([]);
   const [multi,setMulti] = React.useState('');
+  const [multierror,setMultiError] = React.useState(false);
   const [open, setOpen] = React.useState(false);
   const [add, setAdd] = React.useState(false);
   const handleDateChange = date => {
@@ -112,7 +113,17 @@ function CertifyForm(props) {
   };
   const handleDataChange = event => {
     setMulti(event.target.value);
-    // TODO : parse multi as JSON and invoke setData ...
+    try {
+      var val = event.target.value;
+      val = val === '' ? '[]' : val;
+      const d = JSON.parse(val);
+      setData(d);
+      setMultiError(false);
+    } catch (e) {
+      if (e instanceof SyntaxError) {
+          setMultiError(true);
+      }
+    }
   }
   const handleInstChange = event => {
     setInstId(event.target.value);
@@ -182,6 +193,7 @@ function CertifyForm(props) {
             </Grid>
             <Grid item>
               <TextField
+                error={multierror}
                 id="standard-multiline-flexible"
                 label="Learner(s) - Institution identifier(s)"
                 multiline
