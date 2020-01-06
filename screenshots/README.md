@@ -41,8 +41,6 @@ Click on view to view the certifications.
 
 Insitution panel displays the number of tokens and the list of learners associated.
 
-![alt text](./institution.png "Institution")
-
 It is possilbe to associtate learners to this institution.
 
 ![alt text](./institution.png "Institution")
