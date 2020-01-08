@@ -7,15 +7,11 @@ This document describes how to deploy the Archetype contract on the Tezos Babylo
 
 ## Generate Ligo
 
-``` $ ./archetype.exe -t ligo contracts/certification_token.arl > certification_token.ligo```
+```$ ./archetype.exe -t ligo contracts/certification_token.arl > certification_token.ligo```
 
 ## Generate Michelson
+
 ```$ ligo compile-contract certification_token.ligo main > certification_token.tz```
-
-## Generate initial storage
-
-```$ ligo compile-storage certification_token.ligo main 'record learner_assets = (map end : map(address, learner)); institution_assets = (map end : map(address, institution)); certifier_assets = (map end : map(address, certifier)); certification_assets = (map end : map(string, certification)); dtkl = 1; dtki = 1 end'
-(Pair (Pair (Pair {} {}) (Pair 1 1)) (Pair {} {}))```
 
 ## Originate contract
 
@@ -24,3 +20,14 @@ This document describes how to deploy the Archetype contract on the Tezos Babylo
 The above command checks on your local tezos node the origination.
 
 Remove `--dry-run` to deploy the contract on the network.
+
+### Intital storage command (optional)
+Note that the deploy command above contains the initial storage value:
+
+`(Pair (Pair (Pair {} {}) (Pair 1 1)) (Pair {} {}))`
+
+It can be generated with the following Ligo command:
+
+```$ ligo compile-storage certification_token.ligo main 'record learner_assets = (map end : map(address, learner)); institution_assets = (map end : map(address, institution)); certifier_assets = (map end : map(address, certifier)); certification_assets = (map end : map(string, certification)); dtkl = 1; dtki = 1 end'```
+
+
