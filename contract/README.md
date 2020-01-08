@@ -17,7 +17,7 @@ This document describes how to deploy the Archetype contract on the Tezos Babylo
 
 ```$ ./tezos-client originate contract certification_token transferring 0 from user running certification_token.tz --init '(Pair (Pair (Pair {} {}) (Pair 1 1)) (Pair {} {}))' --burn-cap 13.204 --dry-run```
 
-The above command checks on your local tezos node the origination.
+This command checks the origination on your local tezos node.
 
 Remove `--dry-run` to deploy the contract on the network.
 
