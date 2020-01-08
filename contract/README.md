@@ -1,9 +1,9 @@
 # Deploy procedure
 
 This document describes how to deploy the Archetype contract on the Tezos Babylon net. It is assumed here that you have installed
-- the Archetype transcoder (installation)
-- the Ligo compiler (installation)
-- the tezos node on the Babylon net (installation)
+- the Archetype transcoder ([install](https://docs.archetype-lang.org/getting-started-1))
+- the Ligo compiler ([install](https://ligolang.org/docs/intro/installation/))
+- the tezos node on the Babylon net ([install](https://tezos.gitlab.io/introduction/howtoget.html))
 
 ## Generate Ligo
 
