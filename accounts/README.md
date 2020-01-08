@@ -13,7 +13,7 @@ The site [faucet.tzalpha.net](https://faucet.tzalpha.net/) enables to generate a
 
 ## Add an account to Tezbridge
 
-Copy paste the content of the json account file in the 'Import Key' field
+Go to [tezbridge.com](https://www.tezbridge.com/) and copy paste the content of the json account file in the 'Import Key' field:
 
 ![alt text](../screenshots/tezbridge.png "Add an account to Tezbridge")
 
